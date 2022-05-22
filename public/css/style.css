@@ -1,0 +1,11 @@
+:root {
+    --main-color: #223b6a;
+}
+
+/* Genral Styles */
+body {
+    background-color: #f7f8fc;
+}
+.bg-blue-dark-gradient-radial {
+    background-image: linear-gradient(to bottom right,#223b6a,#101725 600px);
+}
