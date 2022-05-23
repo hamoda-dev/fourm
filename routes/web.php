@@ -25,7 +25,7 @@ Route::controller(ReplyController::class)
     ->prefix('threads/{thread}/replies')
     ->as('replies.')
     ->group(function () {
-        Route::post('/', 'store')->middleware('auth')->name('store');
+        Route::post('/', 'store')->name('store');
     });
 
 require __DIR__.'/auth.php';

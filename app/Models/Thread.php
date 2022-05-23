@@ -16,6 +16,8 @@ class Thread extends Model
 
     protected $keyType = 'uuid';
 
+    protected $fillable = ['user_id', 'title', 'body'];
+
     /**
      * Relate thread to his owner
      *

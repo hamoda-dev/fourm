@@ -38,4 +38,34 @@ class ThreadTest extends TestCase
         $this->get(route('threads.show', $thread))
             ->assertSee($thread->title);
     }
+
+    /**
+     * Test an authenticated user create thread
+     *
+     * @test
+     * @return void
+     */
+    public function an_authentcatited_user_create_thread()
+    {
+        $this->singIn();
+
+        $thread = make(Thread::class);
+
+        $this->post(route('threads.store'), $thread->toArray())
+            ->assertSessionHas('success_message');
+    }
+
+    /**
+     * Test an authenticated user create thread
+     *
+     * @test
+     * @return void
+     */
+    public function a_guest_can_not_create_thread()
+    {
+        $thread = make(Thread::class);
+
+        $this->post(route('threads.store'), $thread->toArray())
+            ->assertRedirect(route('login'));
+    }
 }
