@@ -20,7 +20,7 @@ class ReplyTest extends TestCase
      */
     public function it_has_thread()
     {
-        $reply = Reply::factory()->create();
+        $reply = create(Reply::class);
 
         $this->assertInstanceOf(Thread::class, $reply->thread);
     }
@@ -33,7 +33,7 @@ class ReplyTest extends TestCase
      */
     public function it_has_owner()
     {
-        $reply = Reply::factory()->create();
+        $reply = create(Reply::class);
 
         $this->assertInstanceOf(User::class, $reply->owner);
     }

@@ -13,7 +13,7 @@ parameters:
         #- '#PHPDoc tag @var#'
 
     excludePaths:
-        - ./*/*/FileToBeExcluded.php
+        - app/Http/Controllers/Auth/VerifyEmailController.php
 
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false

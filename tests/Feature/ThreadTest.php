@@ -19,7 +19,7 @@ class ThreadTest extends TestCase
      */
     public function it_can_browse_threads()
     {
-        $thread = Thread::factory()->create();
+        $thread = create(Thread::class);
         
         $this->get(route('threads.index'))
             ->assertSee($thread->title);
@@ -33,7 +33,7 @@ class ThreadTest extends TestCase
      */
     public function it_can_browse_specific_thread()
     {
-        $thread = Thread::factory()->create();
+        $thread = create(Thread::class);
         
         $this->get(route('threads.show', $thread))
             ->assertSee($thread->title);

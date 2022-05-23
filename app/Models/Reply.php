@@ -15,6 +15,8 @@ class Reply extends Model
 
     protected $keyType = 'uuid';
 
+    protected $fillable = ['user_id', 'thread_id', 'body'];
+
     /**
      * Relate Reply to his thread
      *

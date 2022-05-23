@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ThreadController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('welcome');
 });
 
 Route::resource('threads', ThreadController::class);
+
+Route::controller(ReplyController::class)
+    ->prefix('threads/{thread}/replies')
+    ->as('replies.')
+    ->group(function () {
+        Route::post('/', 'store')->middleware('auth')->name('store');
+    });
+
+require __DIR__.'/auth.php';
