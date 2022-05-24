@@ -22,6 +22,10 @@ class ReplyController extends Controller
      */
     public function store(Request $request, Thread $thread): RedirectResponse
     {
+        $request->validate([
+            'body' => ['required'],
+        ]);
+
         $thread->replies()->create([
             'user_id' => auth()->user()->id,
             'thread_id' => $thread->id,

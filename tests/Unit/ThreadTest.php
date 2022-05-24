@@ -38,4 +38,20 @@ class ThreadTest extends TestCase
 
         $this->assertInstanceOf(Channel::class, $thread->channel);
     }
+
+    /**
+     * Test thread return his path
+     *
+     * @test
+     * @return void
+     */
+    public function a_thread_return_his_path()
+    {
+        $thread = create(Thread::class);
+
+        $this->assertEquals(
+            $thread->path(),
+            route('threads.show', ['channel' => $thread->channel, 'thread' => $thread])
+        );
+    }
 }

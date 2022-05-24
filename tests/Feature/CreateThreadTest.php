@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Channel;
 use App\Models\Thread;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -49,36 +50,41 @@ class CreateThreadTest extends TestCase
     }
 
     /**
-     * Test a title is required
+     * Test a thread require a title
      *
      * @test
      * @return void
      */
-    public function a_title_is_required()
+    public function a_thread_require_a_title()
     {
         $this->publishThread(['title' => null])
             ->assertSessionHasErrors(['title']);
     }
 
     /**
-     * Test a channel is required
+     * Test a thread require a valid channel
      *
      * @test
      * @return void
      */
-    public function a_channel_is_required()
+    public function a_thread_require_a_valid_channel()
     {
+        create(Channel::class);
+
         $this->publishThread(['channel_id' => null])
+            ->assertSessionHasErrors(['channel_id']);
+
+        $this->publishThread(['channel_id' => 999])
             ->assertSessionHasErrors(['channel_id']);
     }
 
     /**
-     * Test a body is required
+     * Test a thread require a body
      *
      * @test
      * @return void
      */
-    public function a_body_is_required()
+    public function a_thread_require_a_body()
     {
         $this->publishThread(['body' => null])
             ->assertSessionHasErrors(['body']);

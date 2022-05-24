@@ -60,4 +60,22 @@ class ReplyTest extends TestCase
         $this->post(route('replies.store', ['thread' => $thread]))
             ->assertRedirect(route('login'));
     }
+
+    /**
+     * Test a reply require a body
+     *
+     * @test
+     * @return void
+     */
+    public function a_reply_require_a_body()
+    {
+        $this->singIn();
+        
+        $thread = create(Thread::class);
+
+        $reply = make(Reply::class, ['body' => null]);
+
+        $this->post(route('replies.store', ['thread' => $thread]), $reply->toArray())
+            ->assertSessionHasErrors('body');
+    }
 }
