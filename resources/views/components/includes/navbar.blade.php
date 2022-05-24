@@ -10,7 +10,10 @@
                     <a class="nav-link text-white active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ route('threads.index') }}">News</a>
+                    <a class="nav-link text-white" href="{{ route('threads.index') }}">Threads</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ route('threads.create') }}">Create a thread</a>
                 </li>
             </ul>
             <form class="d-flex">

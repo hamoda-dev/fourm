@@ -37,6 +37,16 @@ class ThreadController extends Controller
     }
 
     /**
+     * Show Fourm to create thread
+     *
+     * @return View
+     */
+    public function create(): View
+    {
+        return view('threads.create');
+    }
+
+    /**
      * Store Thread
      *
      * @param Request $request
