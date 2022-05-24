@@ -29,6 +29,6 @@ class ReplyController extends Controller
         ]);
 
         session()->flash('success_message', 'Replied Successfuly');
-        return to_route('threads.show', $thread);
+        return redirect($thread->path());
     }
 }

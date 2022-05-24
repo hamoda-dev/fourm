@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Channel;
 use App\Models\Thread;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ class ThreadController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->only('store');
+        $this->middleware('auth')->except(['index', 'show']);
     }
     /**
      * List threads
@@ -31,9 +32,9 @@ class ThreadController extends Controller
      * @param Thread $thread
      * @return View
      */
-    public function show(Thread $thread): View
+    public function show(string $channel, Thread $thread): View
     {
-        return view('threads.show', ['thread' => $thread]);
+        return view('threads.show', ['thread' => $thread, 'channel' => $channel]);
     }
 
     /**
@@ -43,7 +44,9 @@ class ThreadController extends Controller
      */
     public function create(): View
     {
-        return view('threads.create');
+        $channels = Channel::all();
+        
+        return view('threads.create', ['channels' => $channels]);
     }
 
     /**
@@ -54,14 +57,21 @@ class ThreadController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $request->validate([
+            'channel_id' => ['required'],
+            'title' => ['required'],
+            'body' => ['required'],
+        ]);
+
         $thread = Thread::create([
             'user_id' => auth()->id(),
+            'channel_id' => $request->channel_id,
             'title' => $request->title,
             'body' => $request->body,
         ]);
 
         session()->flash('success_message', 'Thread added successfuly.');
         
-        return to_route('threads.show', ['thread' => $thread->id]);
+        return redirect($thread->path());
     }
 }

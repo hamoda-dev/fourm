@@ -13,7 +13,7 @@
                 </p>
             </div>
         </div>
-        <a  class="text-decoration-none" href="{{ route('threads.show', $thread) }}">
+        <a  class="text-decoration-none" href="{{ $thread->path() }}">
             <h2 class="mt-3">{{ $thread->title }}</h2>
         </a>
         <p class="mt-3 mb-4 pb-2">

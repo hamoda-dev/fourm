@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('threads', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('channel_id');
             $table->string('title');
             $table->text('body');
             $table->timestamps();

@@ -22,7 +22,7 @@ class ReplyTest extends TestCase
     {
         $reply = create(Reply::class);
 
-        $this->get(route('threads.show', $reply->thread))
+        $this->get($reply->thread->path())
             ->assertSee($reply->body);
     }
 
@@ -42,7 +42,7 @@ class ReplyTest extends TestCase
 
         $this->post(route('replies.store', ['thread' => $thread]), $reply->toArray())
             ->assertSessionHas('success_message')
-            ->assertRedirect(route('threads.show', $thread));
+            ->assertRedirect($thread->path());
 
         $this->assertCount(1, $thread->replies);
     }

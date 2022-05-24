@@ -19,7 +19,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('threads', ThreadController::class);
+Route::controller(ThreadController::class)
+    ->prefix('channels/{channel}/threads')
+    ->as('threads.')
+    ->group(function () {
+        Route::get('{thread}', 'show')->name('show');
+    });
+Route::resource('threads', ThreadController::class)
+    ->except(['show']);
 
 Route::controller(ReplyController::class)
     ->prefix('threads/{thread}/replies')

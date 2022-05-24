@@ -16,7 +16,17 @@ class Thread extends Model
 
     protected $keyType = 'uuid';
 
-    protected $fillable = ['user_id', 'title', 'body'];
+    protected $fillable = ['user_id', 'channel_id', 'title', 'body'];
+
+    /**
+     * Generate thread path
+     *
+     * @return string
+     */
+    public function path(): string
+    {
+        return route('threads.show', ['channel' => $this->channel, 'thread' => $this->id]);
+    }
 
     /**
      * Relate thread to his owner
@@ -26,6 +36,16 @@ class Thread extends Model
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Relate thread to channel
+     *
+     * @return BelongsTo
+     */
+    public function channel(): BelongsTo
+    {
+        return $this->belongsTo(Channel::class);
     }
 
     /**
