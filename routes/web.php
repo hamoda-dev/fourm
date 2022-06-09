@@ -25,8 +25,15 @@ Route::controller(ThreadController::class)
     ->group(function () {
         Route::get('{thread}', 'show')->name('show');
     });
+
 Route::resource('threads', ThreadController::class)
     ->except(['show']);
+Route::controller(ThreadController::class)
+    ->prefix('threads')
+    ->as('threads.')
+    ->group(function () {
+        Route::get('{channel}', 'index')->name('channel');
+    });
 
 Route::controller(ReplyController::class)
     ->prefix('threads/{thread}/replies')

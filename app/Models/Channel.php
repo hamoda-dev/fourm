@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Channel extends Model
 {
@@ -12,5 +13,15 @@ class Channel extends Model
     public function getRouteKeyName()
     {
         return "slug";
+    }
+
+    /**
+     * Relate channel with threads
+     *
+     * @return HasMany
+     */
+    public function threads(): HasMany
+    {
+        return $this->hasMany(Thread::class);
     }
 }
