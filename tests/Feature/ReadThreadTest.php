@@ -3,7 +3,9 @@
 namespace Tests\Feature;
 
 use App\Models\Channel;
+use App\Models\Reply;
 use App\Models\Thread;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -55,5 +57,43 @@ class ReadThreadTest extends TestCase
         $this->get(route('threads.channel', $channel->slug))
             ->assertSee($threadInChannel->title)
             ->assertDontSee($threadNotInChannel->title);
+    }
+
+    /**
+     * Test user can filter threads by any username
+     *
+     * @test
+     * @return void
+     */
+    public function a_user_can_filter_threads_by_any_username()
+    {
+        $this->singIn(create(User::class, ['name' => 'JoneDoe']));
+        $threadByJone = create(Thread::class, ['user_id' => auth()->id()]);
+        $threadNotByJone = create(Thread::class);
+
+        $this->get(route('threads.index') . '?by=' . auth()->user()->name)
+            ->assertSee($threadByJone->title)
+            ->assertDontSee($threadNotByJone->title); 
+    }
+
+    /**
+     * Test use can filter threads by popularity
+     *
+     * @test
+     * @return void
+     */
+    public function a_user_can_filter_threads_by_popularity()
+    {
+        $threadWithTwoReply = create(Thread::class);
+        create(Reply::class, ['thread_id' => $threadWithTwoReply->id], 2);
+
+        $threadWithThreeReply = create(Thread::class);
+        create(Reply::class, ['thread_id' => $threadWithThreeReply->id], 3);
+
+        $threadWithOutReply = create(Thread::class);
+
+        $respones = $this->getJson(route('threads.index') . '?popular=1')->json();
+
+        $this->assertEquals([3, 2, 0, 0, 0, 0, 0, 0], array_column($respones, 'replies_count'));
     }
 }

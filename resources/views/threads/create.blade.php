@@ -14,11 +14,11 @@
                     @csrf
 
                     <div class="mb-2">
-                        <label for="channel_id" class="form-label">Channel</label>
-                        <select name="channel_id" id="channel_id" class="form-select" aria-label="channel select menu">
-                            <option value="" selected>Choose channel</option>
+                        <label for="channel_id" class="form-label">Choose Channel</label>
+                        <select name="channel_id" id="channel_id" class="form-select" aria-label="channel select menu" required>
+                            <option value="" selected>Choose One</option>
                             @foreach ($channels as $channel)
-                                <option value="{{ $channel->id }}">{{ $channel->name }}</option>
+                                <option value="{{ $channel->id }}" @selected($channel->id == old('channel_id'))>{{ $channel->name }}</option>
                             @endforeach
                         </select>
 
@@ -29,7 +29,7 @@
                     
                     <div class="mb-2">
                         <label for="title" class="form-label">Title</label>
-                        <input type="text" name="title" class="form-control" id="title" placeholder="Add a title">
+                        <input type="text" name="title" class="form-control" id="title" placeholder="Add a title" required>
 
                         @error('title')
                             <span class="text-danger">{{ $message }}</span>
@@ -37,7 +37,7 @@
                     </div>
                     <div class="mb-2">
                         <label for="body" class="form-label">What's on your mind?</label>
-                        <textarea class="form-control" name="body" id="body" rows="6" placeholder="What's on your mind?"></textarea>
+                        <textarea class="form-control" name="body" id="body" rows="6" placeholder="What's on your mind?" required></textarea>
                         @error('title')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror

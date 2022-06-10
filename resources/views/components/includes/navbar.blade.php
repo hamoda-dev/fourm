@@ -9,19 +9,33 @@
                 <li class="nav-item">
                     <a class="nav-link text-white active" aria-current="page" href="#">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ route('threads.index') }}">Threads</a>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Browse
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('threads.index') }}">All Threads</a>
+                        </li>
+
+                        @if (auth()->check())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('threads.index') }}?by={{ auth()->user()->name }}">My Threads</a>
+                            </li>
+                        @endif
+                    </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Channel
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @foreach (\App\Models\Channel::all() as $channel)
+                        @foreach ($channels as $channel)
                             <li><a class="dropdown-item" href="{{ route('threads.channel', $channel) }}">{{ $channel->name }}</a></li>
                         @endforeach
                     </ul>
-                  </li>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="{{ route('threads.create') }}">Create a thread</a>
                 </li>

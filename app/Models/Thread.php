@@ -7,16 +7,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Thread extends Model
 {
-    use HasFactory, Uuid;
+    use HasFactory;
 
     public $incrementing = false;
 
     protected $keyType = 'uuid';
 
     protected $fillable = ['user_id', 'channel_id', 'title', 'body'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('replyCount', function ($builder) {
+            $builder->withCount('replies');
+        });
+
+        static::creating(function ($model) {
+            $model->id = (string) Str::uuid();
+        });
+    }
 
     /**
      * Generate thread path
@@ -56,5 +70,10 @@ class Thread extends Model
     public function replies(): HasMany
     {
         return $this->hasMany(Reply::class);
+    }
+
+    public function scopeFilter($query, $filters)
+    {
+        return $filters->apply($query);
     }
 }

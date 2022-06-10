@@ -13,7 +13,7 @@ class ChannelTest extends TestCase
 
     /**
      * Channel conssest of threads
-     * 
+     *
      * @test
      * @return void
      */

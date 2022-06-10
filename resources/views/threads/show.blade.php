@@ -8,10 +8,9 @@
     <x-slot name="mainSection">
         <x-cards.thread :thread="$thread" />
 
-        
-            <div class="card text-dark mb-5"> 
-                @if ($thread->replies->count())    
-                    @foreach ($thread->replies as $reply)
+            @if ($thread->replies_count)
+                <div class="card text-dark mb-4">   
+                    @foreach ($replies as $reply)
                         <x-cards.reply :reply="$reply" />
 
                         @if (auth()->check())
@@ -22,8 +21,12 @@
                             @endif
                         @endif
                     @endforeach
-                @endif
+                </div>
+            @endif
 
+            {{ $replies->links() }}
+        
+            <div class="card text-dark mb-5">   
                 @if (auth()->check())
                     <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
                         <form method="POST" action="{{ route('replies.store', $thread) }}">
