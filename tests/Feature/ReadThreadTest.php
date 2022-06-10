@@ -73,7 +73,7 @@ class ReadThreadTest extends TestCase
 
         $this->get(route('threads.index') . '?by=' . auth()->user()->name)
             ->assertSee($threadByJone->title)
-            ->assertDontSee($threadNotByJone->title); 
+            ->assertDontSee($threadNotByJone->title);
     }
 
     /**

@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 
 abstract class Filters
 {
-    protected $request, $bulider;
+    protected $request;
+    
+    protected $bulider;
 
     protected $filters = [];
 
