@@ -19,6 +19,10 @@
                             <a class="nav-link" href="{{ route('threads.index') }}">All Threads</a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('threads.index') }}?popular=1">Popular threads</a>
+                        </li>
+
                         @if (auth()->check())
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('threads.index') }}?by={{ auth()->user()->name }}">My Threads</a>

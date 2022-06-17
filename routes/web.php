@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ThreadController;
+use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,13 @@ Route::controller(ReplyController::class)
     ->as('replies.')
     ->group(function () {
         Route::post('/', 'store')->name('store');
+    });
+
+Route::controller(FavoriteController::class)
+    ->prefix('favorites')
+    ->as('favorites.')
+    ->group(function () {
+        Route::post('{reply}', 'store')->name('reply');
     });
 
 require __DIR__.'/auth.php';
