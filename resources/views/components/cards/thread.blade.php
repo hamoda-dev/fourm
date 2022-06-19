@@ -7,7 +7,11 @@
                 src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
                 height="60" />
             <div>
-                <h6 class="fw-bold text-primary mb-1">{{ $thread->owner->name }}</h6>
+                <h6 class="fw-bold text-primary mb-1">
+                    <a class="text-decoration-none" href="{{ route('profiles.show', $thread->owner->username) }}">
+                        {{ $thread->owner->name }}
+                    </a>
+                </h6>
                 <p class="text-muted small mb-0">
                 Posted at {{ $thread->created_at->diffForHumans() }}
                 </p>

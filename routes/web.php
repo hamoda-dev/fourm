@@ -3,6 +3,7 @@
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ThreadController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,6 +49,13 @@ Route::controller(FavoriteController::class)
     ->as('favorites.')
     ->group(function () {
         Route::post('{reply}', 'store')->name('reply');
+    });
+
+Route::controller(ProfileController::class)
+    ->prefix('profiles')
+    ->as('profiles.')
+    ->group(function () {
+        Route::get('{user:username}', 'show')->name('show');
     });
 
 require __DIR__.'/auth.php';

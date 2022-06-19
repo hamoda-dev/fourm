@@ -6,7 +6,11 @@
         src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(26).webp" alt="avatar" width="60"
         height="60" />
         <div>
-        <h6 class="fw-bold mb-1">{{ $reply->owner->name }}</h6>
+        <h6 class="fw-bold text-primary mb-1">
+            <a class="text-decoration-none" href="{{ route('profiles.show', $reply->owner->username) }}">
+                {{ $reply->owner->name }}
+            </a>
+        </h6>
 
         <div class="d-flex align-items-center mb-3">
             <p class="mb-0 mr-5">
