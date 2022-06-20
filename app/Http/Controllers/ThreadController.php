@@ -33,21 +33,6 @@ class ThreadController extends Controller
     }
 
     /**
-     * Show spacific thread
-     *
-     * @param Thread $thread
-     * @return View
-     */
-    public function show(string $channel, Thread $thread): View
-    {
-        return view('threads.show', [
-            'thread' => $thread,
-            'channel' => $channel,
-            'replies' => $thread->replies()->paginate(10),
-        ]);
-    }
-
-    /**
      * Show Fourm to create thread
      *
      * @return View
@@ -81,6 +66,35 @@ class ThreadController extends Controller
         session()->flash('success_message', 'Thread added successfuly.');
         
         return redirect($thread->path());
+    }
+
+    /**
+     * Show spacific thread
+     *
+     * @param Thread $thread
+     * @return View
+     */
+    public function show(string $channel, Thread $thread): View
+    {
+        return view('threads.show', [
+            'thread' => $thread,
+            'channel' => $channel,
+            'replies' => $thread->replies()->paginate(10),
+        ]);
+    }
+
+    public function destroy(Thread $thread)
+    {
+        $this->authorize('delete', $thread);
+        
+        $thread->delete();
+
+        if (request()->wantsJson()) {
+            return response([], 204);
+        }
+
+        session()->flash('success_message', 'Thread deleted successfuly.');
+        return to_route('threads.index');
     }
 
     private function getThreads(Channel $channel, ThreadFilters $filters)

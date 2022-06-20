@@ -25,7 +25,7 @@
                     </button>
                 </form>
                 {{-- <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
-            <a href="#!" class="text-success"><i class="fas fa-redo-alt ms-2"></i></a> --}}
+                <a href="#!" class="text-success"><i class="fas fa-redo-alt ms-2"></i></a> --}}
             </div>
             
             

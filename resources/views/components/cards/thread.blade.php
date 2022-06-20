@@ -23,5 +23,31 @@
         <p class="mt-3 mb-4 pb-2">
             {{ $thread->body }}
         </p>
+
+        <div class="small d-flex justify-content-start">
+            @can('delete', $thread)
+                <form method="POST" action="{{ route('threads.destroy', $thread) }}">
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit" class="d-flex align-items-center me-3 btn btn-link btn-sm text-decoration-none">
+                        <i class="fa fa-trash me-2"></i> Delete
+                    </button>
+                </form>
+            @endcan
+            
+            {{-- <a href="#!" class="d-flex align-items-center text-decoration-none me-3">
+              <i class="far fa-thumbs-up me-2"></i>
+              <p class="mb-0">Like</p>
+            </a>
+            <a href="#!" class="d-flex align-items-center text-decoration-none me-3">
+              <i class="far fa-comment-dots me-2"></i>
+              <p class="mb-0">Comment</p>
+            </a>
+            <a href="#!" class="d-flex align-items-center text-decoration-none me-3">
+              <i class="fas fa-share me-2"></i>
+              <p class="mb-0">Share</p>
+            </a> --}}
+        </div>
     </div>
 </div>

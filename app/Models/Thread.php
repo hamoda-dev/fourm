@@ -32,6 +32,10 @@ class Thread extends Model
         static::creating(function ($model) {
             $model->id = (string) Str::uuid();
         });
+
+        static::deleting(function ($model) {
+            $model->replies()->delete();
+        });
     }
 
     /**
